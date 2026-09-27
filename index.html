@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Відкрите та Закрите ПЗ — Шпаргалка</title>
+  <!-- Шрифт Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --color-brand-red: #b80000;
+      --color-brand-red-hover: #8f0000;
+      --color-brand-red-subtle: #fee2e2;
+      --color-dark-blue: #0a192f;
+      --color-dark-blue-hover: #172a45;
+      --color-dark-blue-subtle: #e0f2fe;
+      --color-black: #0f172a;
+      --color-white: #ffffff;
+      --color-bg-light: #f8fafc;
+      --color-border: #64748b;
+      --color-border-subtle: #94a3b8;
+      --color-border-dark: #1e293b;
+      --color-text-muted: #334155;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.07);
+      --shadow-md: 0 3px 8px rgba(0, 0, 0, 0.09);
+      --shadow-lg: 0 8px 18px rgba(0, 0, 0, 0.16);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--color-white);
+      color: var(--color-black);
+      font-family: 'Montserrat', sans-serif;
+    }
+    .viewport {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 8px 14px;
+      overflow: hidden;
+    }
+    #board-scalable {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transform-origin: top center;
+    }
+    /* Шапка сайту */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid var(--color-border-dark);
+      flex-shrink: 0;
+    }
+    .header-titles h1 {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-titles h1 .title-red { color: var(--color-brand-red); }
+    .header-titles h1 .title-blue { color: var(--color-dark-blue); }
+    .header-titles p {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+    /* Верхня панель інструментів (висота 28px в одну лінію) */
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .btn-movie {
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0 10px;
+      background: var(--color-dark-blue);
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 10.5px;
+      font-weight: 700;
+      border-radius: 5px;
+      border: 1.5px solid var(--color-dark-blue);
+      box-shadow: var(--shadow-sm);
+      transition: background 0.12s ease, transform 0.12s ease;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+    .btn-movie:hover {
+      background: var(--color-dark-blue-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    .search-wrap {
+      width: 185px;
+      height: 28px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-wrap input {
+      width: 100%;
+      height: 28px;
+      padding: 0 8px 0 28px;
+      font-size: 10.5px;
+      font-family: inherit;
+      font-weight: 600;
+      border: 1.5px solid var(--color-border);
+      border-radius: 5px;
+      background: var(--color-bg-light);
+      color: var(--color-black);
+      outline: none;
+      box-sizing: border-box;
+    }
+    .search-wrap input:focus {
+      border-color: var(--color-dark-blue);
+      background: var(--color-white);
+    }
+    .search-wrap i {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 13px;
+      height: 13px;
+      color: var(--color-text-muted);
+      pointer-events: none;
+    }
+    .btn-pdf {
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0 10px;
+      background: var(--color-white);
+      color: var(--color-black);
+      border: 1.5px solid var(--color-border);
+      border-radius: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.12s ease;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+    .btn-pdf:hover {
+      background: var(--color-bg-light);
+      border-color: var(--color-dark-blue);
+      color: var(--color-dark-blue);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    /* СІТКА НА ОДНОМУ ЕКРАНІ */
+    .matrix-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto auto 1fr;
+      gap: 4px 10px;
+      margin-top: 5px;
+      min-height: 0;
+    }
+    /* Заголовки стовпців з клікабельним описом (без окремих кнопок) */
+    .pillar-header {
+      background: var(--color-white);
+      border: 1.5px solid var(--color-border-dark);
+      border-radius: 5px;
+      padding: 4px 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pillar-header.col-closed {
+      border-color: var(--color-brand-red);
+      background: #fff8f8;
+    }
+    .pillar-header.col-open {
+      border-color: var(--color-dark-blue);
+      background: #f4f8ff;
+    }
+    .pillar-top-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pillar-header h2 {
+      font-size: 12px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .col-closed h2 { color: var(--color-brand-red); }
+    .col-open h2 { color: var(--color-dark-blue); }
+    .pillar-badge {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border: 1px solid currentColor;
+    }
+    .col-closed .pillar-badge { background: var(--color-brand-red-subtle); color: var(--color-brand-red); }
+    .col-open .pillar-badge { background: var(--color-dark-blue-subtle); color: var(--color-dark-blue); }
+    /* Клікабельний текст опису (замість кнопки) */
+    .clickable-desc {
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.12s ease;
+      border-radius: 3px;
+    }
+    .pillar-desc.clickable-desc {
+      font-size: 9.5px;
+      line-height: 1.25;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      padding: 2px 4px;
+      margin: 1px -4px 0 -4px;
+      border: 1px dashed transparent;
+    }
+    .col-closed .pillar-desc.clickable-desc:hover {
+      background: #fee2e2;
+      border-color: var(--color-brand-red);
+      color: var(--color-brand-red-hover);
+    }
+    .col-open .pillar-desc.clickable-desc:hover {
+      background: #e0f2fe;
+      border-color: var(--color-dark-blue);
+      color: var(--color-dark-blue);
+    }
+    /* Блоки категорій */
+    .category-block {
+      background: var(--color-bg-light);
+      border-radius: 5px;
+      padding: 4px 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 0;
+    }
+    .col-closed-cell {
+      border: 1.5px solid rgba(184, 0, 0, 0.4);
+    }
+    .col-open-cell {
+      border: 1.5px solid rgba(10, 25, 47, 0.45);
+    }
+    .category-title {
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--color-black);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .sub-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: var(--color-dark-blue);
+      margin: 2px 0 1px 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+    .chips-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3.5px;
+    }
+    /* Плашки елементів (Chips) */
+    .item-chip {
+      background: var(--color-white);
+      border: 1.5px solid var(--color-border);
+      border-radius: 4px;
+      padding: 2.5px 6.5px;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      user-select: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, border-color 0.1s ease;
+      position: relative;
+    }
+    .item-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    .col-closed-cell .item-chip:hover {
+      border-color: var(--color-brand-red);
+      color: var(--color-brand-red);
+    }
+    .col-open-cell .item-chip:hover {
+      border-color: var(--color-dark-blue);
+      color: var(--color-dark-blue);
+    }
+    .chip-detail {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+    .has-note-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-brand-red);
+    }
+    .col-open-cell .has-note-dot {
+      background: var(--color-dark-blue);
+    }
+    /* Відкритий інкапсульований блок: Кейс Strava (текст одразу на екрані) */
+    .strava-box {
+      margin-top: 5px;
+      padding: 5px 7px;
+      background: #fffbeb;
+      border: 1.5px dashed #d97706;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.12s ease;
+    }
+    .strava-box:hover {
+      background: #fef3c7;
+      border-color: #b45309;
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+    .strava-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 2px;
+    }
+    .strava-tag {
+      font-size: 8.5px;
+      font-weight: 900;
+      color: #92400e;
+      background: #fde68a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .strava-title {
+      font-size: 10px;
+      font-weight: 900;
+      color: #78350f;
+    }
+    .strava-text {
+      font-size: 9.5px;
+      line-height: 1.3;
+      color: #451a03;
+      margin: 0;
+    }
+    /* Нижня смуга переходів */
+    .transition-strip {
+      background: var(--color-white);
+      border: 1.5px solid var(--color-dark-blue);
+      border-radius: 5px;
+      padding: 4px 8px;
+      margin-top: 4px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .transition-label {
+      font-size: 10.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--color-dark-blue);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .transition-items {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .trans-chip {
+      background: var(--color-bg-light);
+      border: 1.5px solid var(--color-border);
+      padding: 2.5px 7px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+    .trans-chip:hover {
+      border-color: var(--color-dark-blue);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+    /* ВИПАДАЮЧЕ МЕНЮ */
+    .chip-dropdown {
+      position: fixed;
+      display: none;
+      background: var(--color-white);
+      border: 1.5px solid var(--color-border-dark);
+      border-radius: 6px;
+      box-shadow: var(--shadow-lg);
+      z-index: 1050;
+      min-width: 200px;
+      overflow: hidden;
+    }
+    .chip-dropdown.active {
+      display: block;
+      animation: dd-pop 0.12s ease-out;
+    }
+    @keyframes dd-pop {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .dd-header {
+      padding: 5px 8px;
+      background: var(--color-bg-light);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .dd-title {
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--color-black);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .dd-actions {
+      display: flex;
+      flex-direction: column;
+      padding: 3px;
+    }
+    .dd-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 7px;
+      font-size: 10.5px;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--color-black);
+      background: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.1s ease;
+    }
+    .dd-item:hover {
+      background: var(--color-bg-light);
+    }
+    .dd-item.item-card:hover {
+      background: var(--color-brand-red-subtle);
+      color: var(--color-brand-red);
+    }
+    .dd-item.item-ai:hover {
+      background: var(--color-dark-blue-subtle);
+      color: var(--color-dark-blue);
+    }
+    .dd-item.item-gh:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .dd-item.item-url:hover {
+      background: #ecfdf5;
+      color: #047857;
+    }
+    .dd-item.item-extra:hover {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    /* МОДАЛЬНЕ ВІКНО КАРТКИ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: var(--color-white);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--color-dark-blue);
+      padding: 18px;
+      position: relative;
+      transform: scale(0.96);
+      transition: transform 0.15s ease;
+    }
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      color: var(--color-black);
+      border-radius: 4px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close-btn:hover {
+      background: var(--color-bg-light);
+      border-color: var(--color-border-dark);
+    }
+    .modal-category-path {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--color-text-muted);
+      margin-bottom: 4px;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 4px;
+    }
+    .modal-detail {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      margin-bottom: 10px;
+    }
+    .modal-note-box {
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border-subtle);
+      border-left: 3.5px solid var(--color-dark-blue);
+      border-radius: 0 5px 5px 0;
+      padding: 9px 11px;
+      font-size: 11px;
+      line-height: 1.45;
+      color: var(--color-black);
+      font-weight: 500;
+    }
+    .chip-hidden {
+      display: none !important;
+    }
+    /* ДРУК A4 LANDSCAPE */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 6mm 8mm;
+      }
+      html, body {
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .viewport {
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+      #board-scalable {
+        transform: none !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+      header {
+        padding-bottom: 4px !important;
+        margin-bottom: 6px !important;
+      }
+      .header-tools,
+      .chip-dropdown,
+      .modal-overlay,
+      .has-note-dot {
+        display: none !important;
+      }
+      .matrix-grid {
+        margin-top: 4px !important;
+        gap: 4px 8px !important;
+      }
+      .pillar-header {
+        padding: 3px 6px !important;
+      }
+      .category-block {
+        padding: 3px 5px !important;
+        background: #f8fafc !important;
+        break-inside: avoid;
+      }
+      .item-chip {
+        padding: 1.5px 5px !important;
+        box-shadow: none !important;
+        border: 1px solid #475569 !important;
+      }
+      .strava-box {
+        margin-top: 4px !important;
+        padding: 4px 6px !important;
+        break-inside: avoid;
+      }
+      .transition-strip {
+        margin-top: 4px !important;
+        padding: 3px 6px !important;
+        break-inside: avoid;
+      }
+      .trans-chip {
+        padding: 2px 6px !important;
+        box-shadow: none !important;
+        border: 1px solid #475569 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <div id="board-scalable">
+      <!-- Шапка -->
+      <header>
+        <div class="header-titles">
+          <h1>
+            <span class="title-red">🔒 ЗАКРИТІ</span> 
+            <span style="font-weight:400; color: var(--color-border-dark);">/</span> 
+            <span class="title-blue">📖 ВІДКРИТІ</span>
+          </h1>
+          <p>Навчальна шпаргалка • Open Data, Smart City, приватність і свобода вихідного коду</p>
+        </div>
+        <div class="header-tools">
+          <a href="https://youtu.be/n1F_MfLRlX0?si=e1msW9x608SKRST0&t=396" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn-movie" 
+             title="Дивитися фільм «Revolution OS» про відкритий код та Linux (з таймкодом)">
+            <i data-lucide="film" style="width: 13px; height: 13px;"></i>
+            <span>Фільм «Revolution OS»</span>
+          </a>
+          <div class="search-wrap">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-box" placeholder="Пошук (AI, банк, ЛУН)...">
+          </div>
+          <button class="btn-pdf" id="btn-pdf" title="Роздрукувати або зберегти шпаргалку у форматі PDF (A4 Landscape)">
+            <i data-lucide="printer" style="width: 13px; height: 13px;"></i>
+            <span>PDF / Друк A4</span>
+          </button>
+        </div>
+      </header>
+      <!-- ПОРІВНЯЛЬНА СІТКА З ОДНАКОВИМИ РЯДКАМИ -->
+      <main class="matrix-grid">
+        <!-- Рядок 0: Заголовки стовпців із клікабельними описами -->
+        <div class="pillar-header col-closed">
+          <div class="pillar-top-line">
+            <h2><i data-lucide="lock" style="width: 13px; height: 13px;"></i> ЗАКРИТІ (Пропрієтарний)</h2>
+            <span class="pillar-badge">Код схований</span>
+          </div>
+          <p class="pillar-desc clickable-desc" data-id="def-closed" title="Клікніть: AI-пояснення та стаття у Вікіпедії">
+            «Чорний ящик»: код схований компанією як комерційна таємниця. Оренда функціоналу без права вивчати або змінювати програму.
+            <i data-lucide="external-link" style="width: 9px; height: 9px; display: inline-block; vertical-align: middle; margin-left: 2px;"></i>
+          </p>
+        </div>
+        <div class="pillar-header col-open">
+          <div class="pillar-top-line">
+            <h2><i data-lucide="book-open" style="width: 13px; height: 13px;"></i> ВІДКРИТІ (Відкритий сирцевий код [Open source])</h2>
+            <span class="pillar-badge">Код доступний</span>
+          </div>
+          <p class="pillar-desc clickable-desc" data-id="def-open" title="Клікніть: AI-пояснення та стаття у Вікіпедії">
+            «Прозорий механізм»: код відкритий для аудиту, змін та вільного поширення. Забезпечує незалежність і контроль над даними.
+            <i data-lucide="external-link" style="width: 9px; height: 9px; display: inline-block; vertical-align: middle; margin-left: 2px;"></i>
+          </p>
+        </div>
+        <!-- Рядок 1: БРЕНДИ (ОДНАКОВА ВИСОТА) -->
+        <div class="category-block col-closed-cell" id="cell-brands-closed"></div>
+        <div class="category-block col-open-cell" id="cell-brands-open"></div>
+        <!-- Рядок 2: AI (ОДНАКОВА ВИСОТА) -->
+        <div class="category-block col-closed-cell" id="cell-ai-closed"></div>
+        <div class="category-block col-open-cell" id="cell-ai-open"></div>
+        <!-- Рядок 3: SELF-HOSTED (ОДНАКОВА ВИСОТА, ВІДОКРЕМЛЕНО ВІД УКРАЇНСЬКИХ) -->
+        <div class="category-block col-closed-cell" id="cell-sh-closed"></div>
+        <div class="category-block col-open-cell" id="cell-sh-open"></div>
+        <!-- Рядок 4: УКРАЇНСЬКІ ТА ВІДКРИТИЙ КЕЙС STRAVA -->
+        <div class="category-block col-closed-cell" id="cell-ua-closed"></div>
+        <div class="category-block col-open-cell" id="cell-ua-open"></div>
+      </main>
+      <!-- Нижня смуга: БУЛИ ЗАКРИТІ, СТАЛИ ВІДКРИТІ -->
+      <footer class="transition-strip" id="panel-transitions"></footer>
+    </div>
+  </div>
+  <!-- КОМПАКТНЕ ВИПАДАЮЧЕ МЕНЮ (DROPDOWN) -->
+  <div class="chip-dropdown" id="chip-dropdown">
+    <div class="dd-header">
+      <div class="dd-title" id="dd-title">Назва</div>
+    </div>
+    <div class="dd-actions">
+      <!-- 1. Коротко (картка) -->
+      <button class="dd-item item-card" id="btn-dd-card">
+        <i data-lucide="layout" style="width: 12px; height: 12px;"></i>
+        <span>Коротко (картка)</span>
+      </button>
+      <!-- 2. Запитати АІ -->
+      <button class="dd-item item-ai" id="btn-dd-ai">
+        <i data-lucide="sparkles" style="width: 12px; height: 12px;"></i>
+        <span>Запитати АІ (Google AI Mode)</span>
+      </button>
+      <!-- 3. GitHub (перед сайтом сервісу) -->
+      <button class="dd-item item-gh" id="btn-dd-gh">
+        <i data-lucide="git-branch" style="width: 12px; height: 12px;"></i>
+        <span>Вихідний код (GitHub)</span>
+      </button>
+      <!-- 4. Спробувати / Сайт / Джерело -->
+      <button class="dd-item item-url" id="btn-dd-url">
+        <i data-lucide="external-link" style="width: 12px; height: 12px;"></i>
+        <span id="lbl-dd-url">Спробувати (перейти на сайт)</span>
+      </button>
+      <!-- 5. Найнижчий пункт: Інтерактивна мапа Strava Heatmap -->
+      <button class="dd-item item-extra" id="btn-dd-extra">
+        <i data-lucide="map" style="width: 12px; height: 12px;"></i>
+        <span id="lbl-dd-extra">Спробувати мапу (Strava Heatmap)</span>
+      </button>
+    </div>
+  </div>
+  <!-- МОДАЛЬНЕ ВІКНО КАРТКИ -->
+  <div class="modal-overlay" id="info-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modal-close"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
+      <div class="modal-category-path" id="m-path">Категорія</div>
+      <h3 class="modal-title" id="m-title">Назва</h3>
+      <div class="modal-detail" id="m-detail">Короткий опис</div>
+      <div class="modal-note-box" id="m-note">Додаткова інформація</div>
+    </div>
+  </div>
+  <script>
+    /* =========================================================================
+       БАЗА ДАНИХ (APP_DATA) — З УСІМА СЕРВІСАМИ ТА GITHUB
+       ========================================================================= */
+    const APP_DATA = {
+      // 1. ЗАКРИТІ (PROPRIETARY)
+      closedSource: {
+        brands: {
+          title: "Бренди",
+          icon: "globe",
+          items: [
+            { 
+              id: "c-ms",
+              name: "Microsoft", 
+              detail: "Windows", 
+              note: "Закрита комерційна система. Windows стежить за діями користувача (телеметрія, додатки, пошук) і передає ці дані компанії. Повної приватності тут немає.", 
+              icon: "laptop",
+              url: "https://www.microsoft.com/uk-ua/windows",
+              aiQuery: "Чому Windows — це закрита система і що вона знає про користувача? Поясни простою життєвою аналогією для іспиту"
+            },
+            { 
+              id: "c-goog",
+              name: "Google", 
+              detail: "Youtube, Диск", 
+              note: "Зручні, але закриті хмари. Google заробляє на рекламі, тому фіксує все: переглянуті відео, пошукові запити та геолокацію. Ви не анонімні.", 
+              icon: "play-square",
+              url: "https://www.google.com",
+              aiQuery: "Чому сервіси Google не дають повної анонімності і як вони заробляють на персональних даних? Простий життєвий приклад"
+            },
+            { 
+              id: "c-oai",
+              name: "Open AI", 
+              detail: "ChatGPT", 
+              note: "Закритий AI. Усі ваші листування зберігаються на серверах компанії. Їх можуть переглядати модератори або використовувати для тренування нових моделей.", 
+              icon: "sparkles",
+              url: "https://chatgpt.com",
+              aiQuery: "Чому не можна відправляти конфіденційні дані в ChatGPT? Поясни на життєвому прикладі кав'ярні"
+            },
+            { 
+              id: "c-meta",
+              name: "Meta", 
+              detail: "Facebook, Threads, Instagram", 
+              note: "Закриті соцмережі. Їхня головна мета — вивчити ваші вподобання та утримувати увагу заради показу реклами. Анонімність не передбачена.", 
+              icon: "share-2",
+              url: "https://about.meta.com",
+              aiQuery: "Чому в Instagram та Facebook неможливо бути анонімним? Просте пояснення для новачка"
+            },
+            { 
+              id: "c-apple",
+              name: "Apple", 
+              detail: "iPhone, iPad", 
+              note: "«Золота клітка». Apple захищає вас від реклами сторонніх фірм, але сама повністю контролює пристрій і правила встановлення програм.", 
+              icon: "smartphone",
+              url: "https://www.apple.com",
+              aiQuery: "Чому екосистема Apple вважається закритою золотою кліткою? Проста життєва аналогія"
+            }
+          ]
+        },
+        ai: {
+          title: "AI (картинки, і текст)",
+          icon: "bot",
+          items: [
+            { 
+              id: "c-chatgpt",
+              name: "ChatGPT", 
+              detail: "текст, картинки, аналітика", 
+              note: "Закрита комерційна модель. Працює в хмарі OpenAI: не підходить для обробки суворо таємних або особистих документів.", 
+              icon: "message-square",
+              url: "https://chatgpt.com",
+              aiQuery: "Чому ChatGPT — це закрита модель? Поясни різницю з відкритим AI на життєвому прикладі (кав'ярня проти домашньої кави)"
+            },
+            { 
+              id: "c-gemini",
+              name: "Gemini", 
+              detail: "мультимодальний AI", 
+              note: "Закритий AI від Google. Тісно пов'язаний з вашим обліковим записом: Google знає, хто саме ставить запитання.", 
+              icon: "cpu",
+              url: "https://gemini.google.com",
+              aiQuery: "Чому нейромережа Google Gemini є закритим комерційним штучним інтелектом? Поясни на простому прикладі з життя"
+            },
+            { 
+              id: "c-claude",
+              name: "Claude", 
+              detail: "текст і код", 
+              note: "Закритий AI від Anthropic. Потужний інструмент, але кожен запит проходить модерацію та зберігається на серверах фірми.", 
+              icon: "brain",
+              url: "https://claude.ai",
+              aiQuery: "Чому Anthropic Claude — це закритий штучний інтелект? Наведи коротку життєву аналогію для студента"
+            }
+          ]
+        },
+        selfHostedCounterpart: {
+          title: "Модель розміщення (SaaS / Vendor Lock-in)",
+          icon: "cloud-off",
+          items: [
+            {
+              id: "c-lockin",
+              name: "Неможливо розгорнути самостійно",
+              detail: "Vendor Lock-in",
+              note: "У закритому софті немає автономності. Це як жити в орендованому номері готелю: ви не маєте програми на руках і повністю залежите від власника сервісу.",
+              icon: "server-off",
+              url: "https://uk.wikipedia.org/wiki/Програмне_забезпечення_як_послуга",
+              aiQuery: "Що таке Vendor Lock-in (прив'язка до компанії) у закритому софті? Аналогія з орендою житла"
+            }
+          ]
+        },
+        ukrainian: {
+          title: "🇺🇦 Українські",
+          icon: "flag",
+          subgroups: [
+            {
+              subTitle: "Державні",
+              items: [
+                { 
+                  id: "c-ksc",
+                  name: "Kyiv Smart City", 
+                  detail: "проїзд", 
+                  note: "Smart City (розумне місто) для транспорту. Зручно купувати квитки, але система фіксує ваші поїздки, а код програми закритий від аудиту громади.", 
+                  icon: "bus",
+                  url: "https://kyiv.digital",
+                  aiQuery: "Що таке Smart City (розумне місто) і як воно фіксує пересування громадян на прикладі транспорту? Просте пояснення"
+                },
+                { 
+                  id: "c-pb",
+                  name: "Приватбанк", 
+                  detail: "додаток банку*", 
+                  note: "* Державний банк, проте додаток Приват24 закритий. Фінансова система зобов'язана знати ваш паспорт та витрати — діє банківська таємниця, а не анонімність.", 
+                  icon: "credit-card",
+                  url: "https://privat24.ua",
+                  aiQuery: "Чому банківські додатки мають закритий код і чим банківська таємниця відрізняється від анонімності? Приклад для іспиту"
+                }
+              ]
+            },
+            {
+              subTitle: "Приватні",
+              items: [
+                { 
+                  id: "c-gram",
+                  name: "Grammarly", 
+                  detail: "Т9 із АІ", 
+                  note: "Закриті власні алгоритми. Ваш текст відправляється на сервери сервісу для аналізу помилок. Працює угода про конфіденційність.", 
+                  icon: "spell-check",
+                  url: "https://www.grammarly.com",
+                  aiQuery: "Чому сервіс Grammarly — це закритий комерційний AI? Поясни простою життєвою аналогією"
+                },
+                { 
+                  id: "c-np",
+                  name: "Нова пошта", 
+                  detail: "пошта", 
+                  note: "Закрите приватне ПЗ. Зберігає номери телефонів, домашні адреси та всю історію ваших посилок.", 
+                  icon: "package",
+                  url: "https://novaposhta.ua",
+                  aiQuery: "Чому система трекінгу Нова пошта — це закрите комерційне ПЗ? Наведи приклад із життя"
+                },
+                { 
+                  id: "c-rozetka",
+                  name: "Rozetka", 
+                  detail: "інтернет-магазин", 
+                  note: "Закритий маркетплейс. Зберігає ваші покупки, списки бажань і платіжні дані для маркетингу.", 
+                  icon: "shopping-cart",
+                  url: "https://rozetka.com.ua",
+                  aiQuery: "Чому маркетплейс Rozetka — це закрита пропрієтарна система? Проста побутова аналогія"
+                },
+                { 
+                  id: "c-mono",
+                  name: "Monobank", 
+                  detail: "банк", 
+                  note: "Закритий фінтех-додаток. Надійний захист грошей, але ніхто з користувачів не може побачити, що всередині коду.", 
+                  icon: "wallet",
+                  url: "https://www.monobank.ua",
+                  aiQuery: "Чому банкінг Monobank є закритим програмним забезпеченням? Поясни простим життєвим прикладом"
+                },
+                { 
+                  id: "c-askod",
+                  name: "АСКОД", 
+                  detail: "документи", 
+                  note: "Закрита корпоративна система документообігу для бізнесу та держустанов. Код закритий для безпеки файлів.", 
+                  icon: "file-text",
+                  url: "https://askod.ua",
+                  aiQuery: "Чому система АСКОД — це закритий документообіг? Поясни на простому прикладі з життя"
+                },
+                { 
+                  id: "c-tryvoga",
+                  name: "єТривога", 
+                  detail: "мапа тривог*", 
+                  note: "* Частково відкрита: бере Відкриті дані (Open Data) про повітряні тривоги й транслює їх людям, але серверний код лишається закритим.", 
+                  icon: "bell-ring",
+                  url: "https://alarmmap.online",
+                  aiQuery: "Як додаток єТривога використовує відкриті дані (Open Data) про тривоги і чи безпечно це? Поясни для студента"
+                },
+                { 
+                  id: "c-helsi",
+                  name: "Helsi", 
+                  detail: "лікарі*", 
+                  note: "* Приватний медичний сервіс, з'єднаний із державною системою eHealth. Обробляє дуже чутливі медичні дані, тому приватність тут найважливіша.", 
+                  icon: "heart-pulse",
+                  url: "https://helsi.me",
+                  aiQuery: "Чому медичні додатки на кшталт Helsi вимагають суворої приватності? Простий приклад із життя"
+                },
+                { 
+                  id: "c-lun",
+                  name: "ЛУН", 
+                  detail: "житло, екологія, карти", 
+                  note: "Популярний сервіс. Сайти продажу та оренди квартир — закриті. Але проєкт «ЛУН Місто» дає Відкриті дані (Open Data): якість повітря, укриття, світло та безбар'єрність.", 
+                  icon: "home",
+                  url: "https://misto.lun.ua",
+                  aiQuery: "Як сервіс ЛУН поєднує комерційний сайт із відкритими даними (Open Data) про якість повітря та укриття? Поясни простою мовою"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      // 2. ВІДКРИТІ (OPEN SOURCE)
+      openSource: {
+        brands: {
+          title: "© Бренди",
+          icon: "globe",
+          items: [
+            { 
+              id: "o-wiki",
+              name: "Wikipedia", 
+              detail: "вільна енциклопедія", 
+              note: "Головний приклад Відкритих даних (Open Data) та коду MediaWiki. Вільні знання людства без комерційного стеження, реклами та платних підписок.", 
+              icon: "book-open",
+              url: "https://uk.wikipedia.org",
+              githubUrl: "https://github.com/wikimedia/mediawiki",
+              aiQuery: "Чому Вікіпедія — це найкращий приклад Open Source та Open Data? Поясни на прикладі відкритої бібліотеки"
+            },
+            { 
+              id: "o-linux",
+              name: "Linux", 
+              detail: "операційна система", 
+              note: "Відкрита ОС без прихованого шпигунства. Весь код публічний. Спеціальні версії Linux (Tails) створені спеціально для повної анонімності в мережі.", 
+              icon: "terminal",
+              url: "https://www.kernel.org",
+              githubUrl: "https://github.com/torvalds/linux",
+              aiQuery: "Чому Linux вважається найбезпечнішою ОС для приватності та анонімності? Проста аналогія з прозорим будинком"
+            },
+            { 
+              id: "o-android",
+              name: "Android", 
+              detail: "мобільна ОС (AOSP)", 
+              note: "Базовий код Android повністю відкритий. Ентузіасти можуть створювати версії без сервісів Google, щоб компанії не відстежували геолокацію.", 
+              icon: "smartphone",
+              url: "https://source.android.com",
+              githubUrl: "https://github.com/android",
+              aiQuery: "Чому базовий Android AOSP відкритий, але смартфони різні? Поясни простою життєвою аналогією"
+            },
+            { 
+              id: "o-github",
+              name: "GitHub", 
+              detail: "платформа коду", 
+              note: "Світова відкрита бібліотека програм. Будь-хто може подивитися, як влаштована програма, знайти в ній помилки або перевірити на віруси.", 
+              icon: "git-branch",
+              url: "https://github.com",
+              githubUrl: "https://github.com/github",
+              aiQuery: "Що таке GitHub і чому це дім відкритого коду? Поясни на простому побутовому прикладі"
+            }
+          ]
+        },
+        ai: {
+          title: "🧠 AI",
+          icon: "brain-circuit",
+          items: [
+            { 
+              id: "o-ollama",
+              name: "Ollama", 
+              detail: "текст", 
+              note: "Локальний AI на вашому комп'ютері. 100% приватність: пишіть найпотаємніші думки чи паролі — жоден байт не летить на сервери в інтернет.", 
+              icon: "terminal",
+              url: "https://ollama.com",
+              githubUrl: "https://github.com/ollama/ollama",
+              aiQuery: "Чому локальний AI через Ollama гарантує повну приватність порівняно з ChatGPT? Аналогія з приготуванням кави вдома"
+            },
+            { 
+              id: "o-sd",
+              name: "Stable Diffusion", 
+              detail: "картинки", 
+              note: "Відкритий генератор зображень на вашому ПК. Ваша творчість лишається суто вашою: немає хмарної цензури та логів на сторонніх серверах.", 
+              icon: "image",
+              url: "https://stability.ai",
+              githubUrl: "https://github.com/CompVis/stable-diffusion",
+              aiQuery: "Чому Stable Diffusion є відкритим AI? Поясни різницю з закритими генераторами на простому життєвому прикладі для іспиту"
+            }
+          ]
+        },
+        selfHosted: {
+          title: "🛠 Self-hosted (автономне розгортання)",
+          icon: "server",
+          items: [
+            { 
+              id: "o-wp",
+              name: "Wordpress", 
+              detail: "наш робочий сайт на ньому", 
+              note: "Сайт на вашому власному хостингу. Повна приватність: усі статті, паролі та читачі належать тільки вам, а не стороннім конструкторам сайтів.", 
+              icon: "layout",
+              url: "https://wordpress.org",
+              githubUrl: "https://github.com/WordPress/WordPress",
+              aiQuery: "Чому self-hosted WordPress дає повний контроль над даними? Аналогія: своя кухня проти ресторанного столика"
+            },
+            { 
+              id: "o-torrent",
+              name: "Торрент", 
+              detail: "скачування фільмів*", 
+              note: "* Прямий обмін файлами між людьми (P2P). Дозволяє передавати вільні дистрибутиви програм без цензури та контролю посередників.", 
+              icon: "download-cloud",
+              url: "https://qbittorrent.org",
+              githubUrl: "https://github.com/arvidn/libtorrent",
+              aiQuery: "Чому протокол BitTorrent — це корисний інструмент передачі даних без цензури, а не тільки піратство? Приклад для іспиту"
+            }
+          ]
+        },
+        ukrainian: {
+          title: "Українські",
+          icon: "shield-check",
+          items: [
+            { 
+              id: "o-prozorro",
+              name: "ProZorro", 
+              detail: "закупівлі", 
+              note: "Взірець Відкритих даних (Open Data) в Україні. Принцип «усі бачать усе»: кожна закупівля школи чи лікарні публічна для захисту від корупції.", 
+              icon: "eye",
+              url: "https://prozorro.gov.ua",
+              githubUrl: "https://github.com/ProzorroUKR",
+              aiQuery: "Чому система ProZorro є головним прикладом Open Data (відкритих даних) проти корупції? Простий життєвий приклад"
+            }
+          ]
+        }
+      },
+      // 3. БУЛИ ЗАКРИТІ, СТАЛИ ВІДКРИТІ
+      transitions: {
+        title: "БУЛИ ЗАКРИТІ, СТАЛИ ВІДКРИТІ",
+        items: [
+          { 
+            id: "t-diia",
+            name: "Дія", 
+            detail: "цифрові послуги", 
+            note: "Цифрова держава. Відкриття частини коду (Diia Open Source) дає змогу суспільству переконатися, що додаток захищає приватність і не має шпигунських лазівок.", 
+            icon: "smartphone",
+            url: "https://diia.gov.ua",
+            githubUrl: "https://github.com/diia-open-source",
+            aiQuery: "Чому відкриття коду сервісу Дія (Diia Open Source) важливе для довіри до держави? Просте пояснення для студента"
+          },
+          { 
+            id: "t-firefox",
+            name: "Netscape ➔ Mozilla Firefox", 
+            detail: "веб-браузер", 
+            note: "Комерційний браузер Netscape відкрив свій код проєкту Mozilla. Так народився Firefox — вільний браузер, який захищає людей від трекерів у мережі.", 
+            icon: "flame",
+            url: "https://www.mozilla.org/firefox/",
+            githubUrl: "https://github.com/mozilla/gecko-dev",
+            aiQuery: "Як відкриття коду Netscape та створення Mozilla Firefox врятувало вільний інтернет? Коротка життєва аналогія"
+          }
+        ]
+      }
+    };
+    /* =========================================================================
+       БЕЗПЕЧНИЙ РЕЄСТР ЕЛЕМЕНТІВ (З ОПИСАМИ ТА STRAVA БЕЗ КАРТКИ)
+       ========================================================================= */
+    const ITEM_REGISTRY = {};
+    // 1. Опис: Закрите ПЗ (відкриває меню з 2 пунктів: AI + Вікіпедія)
+    ITEM_REGISTRY['def-closed'] = {
+      id: 'def-closed',
+      name: 'Пропрієтарне (закрите) ПЗ',
+      noCard: true,
+      aiQuery: 'Що таке пропрієтарне закрите програмне забезпечення? Поясни сутність, плюси та мінуси простою мовою з життєвими прикладами для іспиту',
+      url: 'https://uk.wikipedia.org/wiki/Пропрієтарне_програмне_забезпечення',
+      urlText: 'Стаття у Вікіпедії',
+      icon: 'lock'
+    };
+    // 2. Опис: Відкрите ПЗ (відкриває меню з 2 пунктів: AI + Вікіпедія)
+    ITEM_REGISTRY['def-open'] = {
+      id: 'def-open',
+      name: 'Відкрите ПЗ (Open Source)',
+      noCard: true,
+      aiQuery: 'Що таке відкрите програмне забезпечення (Open Source)? Поясни філософію, свободи та значення для суспільства простою мовою для іспиту',
+      url: 'https://uk.wikipedia.org/wiki/Відкрите_програмне_забезпечення',
+      urlText: 'Стаття у Вікіпедії',
+      icon: 'book-open'
+    };
+    // 3. Кейс Strava: небезпека відкритих даних (відкриває меню: AI + NYTimes + Strava Heatmap)
+    ITEM_REGISTRY['o-strava'] = {
+      id: 'o-strava',
+      name: 'Кейс Strava Heat Map',
+      noCard: true,
+      aiQuery: 'Як кейс Strava Heat Map 2018 року показав ризики відкритих даних (Open Data) та розсекретив військові бази? Поясни для студентів',
+      url: 'https://www.nytimes.com/2018/01/29/world/middleeast/strava-heat-map.html',
+      urlText: 'Розслідування (The New York Times)',
+      extraUrl: 'https://www.strava.com/maps/global-heatmap',
+      extraUrlText: 'Спробувати мапу (Strava Heatmap)',
+      icon: 'alert-triangle'
+    };
+    function createChipHTML(item, pathStr) {
+      ITEM_REGISTRY[item.id] = { ...item, path: pathStr };
+      const searchKey = `${item.name} ${item.detail || ''} ${item.note || ''}`.toLowerCase();
+      const hasNote = !!item.note;
+      return `
+        <div class="item-chip" 
+             data-search="${searchKey}" 
+             data-id="${item.id}">
+          <i data-lucide="${item.icon || 'box'}" style="width: 11px; height: 11px;"></i>
+          <span>${item.name}</span>
+          ${item.detail ? `<span class="chip-detail">(${item.detail})</span>` : ''}
+          ${hasNote ? `<span class="has-note-dot"></span>` : ''}
+        </div>
+      `;
+    }
+    function renderMatrix() {
+      // 1. Бренди (Рядок 1)
+      const bClosed = APP_DATA.closedSource.brands;
+      document.getElementById('cell-brands-closed').innerHTML = `
+        <div class="category-title"><i data-lucide="${bClosed.icon}"></i> ${bClosed.title}</div>
+        <div class="chips-flow">${bClosed.items.map(it => createChipHTML(it, "🔒 Закрите ПЗ › " + bClosed.title)).join('')}</div>
+      `;
+      const bOpen = APP_DATA.openSource.brands;
+      document.getElementById('cell-brands-open').innerHTML = `
+        <div class="category-title"><i data-lucide="${bOpen.icon}"></i> ${bOpen.title}</div>
+        <div class="chips-flow">${bOpen.items.map(it => createChipHTML(it, "📖 Відкрите ПЗ › " + bOpen.title)).join('')}</div>
+      `;
+      // 2. AI (Рядок 2)
+      const aiClosed = APP_DATA.closedSource.ai;
+      document.getElementById('cell-ai-closed').innerHTML = `
+        <div class="category-title"><i data-lucide="${aiClosed.icon}"></i> ${aiClosed.title}</div>
+        <div class="chips-flow">${aiClosed.items.map(it => createChipHTML(it, "🔒 Закрите ПЗ › " + aiClosed.title)).join('')}</div>
+      `;
+      const aiOpen = APP_DATA.openSource.ai;
+      document.getElementById('cell-ai-open').innerHTML = `
+        <div class="category-title"><i data-lucide="${aiOpen.icon}"></i> ${aiOpen.title}</div>
+        <div class="chips-flow">${aiOpen.items.map(it => createChipHTML(it, "📖 Відкрите ПЗ › " + aiOpen.title)).join('')}</div>
+      `;
+      // 3. Self-hosted (Рядок 3 — окремий рівень однакової висоти)
+      const shClosed = APP_DATA.closedSource.selfHostedCounterpart;
+      document.getElementById('cell-sh-closed').innerHTML = `
+        <div class="category-title"><i data-lucide="${shClosed.icon}"></i> ${shClosed.title}</div>
+        <div class="chips-flow">${shClosed.items.map(it => createChipHTML(it, "🔒 Закрите ПЗ › " + shClosed.title)).join('')}</div>
+      `;
+      const shOpen = APP_DATA.openSource.selfHosted;
+      document.getElementById('cell-sh-open').innerHTML = `
+        <div class="category-title"><i data-lucide="${shOpen.icon}"></i> ${shOpen.title}</div>
+        <div class="chips-flow">${shOpen.items.map(it => createChipHTML(it, "📖 Відкрите ПЗ › " + shOpen.title)).join('')}</div>
+      `;
+      // 4. Українські (Рядок 4)
+      const uaClosed = APP_DATA.closedSource.ukrainian;
+      let uaClosedHTML = `<div class="category-title"><i data-lucide="${uaClosed.icon}"></i> ${uaClosed.title}</div>`;
+      uaClosed.subgroups.forEach(sub => {
+        uaClosedHTML += `<div class="sub-title">${sub.subTitle}</div><div class="chips-flow">`;
+        uaClosedHTML += sub.items.map(it => createChipHTML(it, `🔒 Закрите ПЗ › ${uaClosed.title} › ${sub.subTitle}`)).join('');
+        uaClosedHTML += `</div>`;
+      });
+      document.getElementById('cell-ua-closed').innerHTML = uaClosedHTML;
+      // 4. Українські + Відокремлений інкапсульований блок Strava
+      const uaOpen = APP_DATA.openSource.ukrainian;
+      let uaOpenHTML = `
+        <div class="category-title"><i data-lucide="${uaOpen.icon}"></i> ${uaOpen.title}</div>
+        <div class="chips-flow">
+          ${uaOpen.items.map(it => createChipHTML(it, "📖 Відкрите ПЗ › " + uaOpen.title)).join('')}
+        </div>
+        <!-- Відкритий текстовий блок: Кейс Strava (клікабельний для меню) -->
+        <div class="strava-box clickable-desc" data-id="o-strava" title="Клікніть для AI-аналізу, статті NYTimes та інтерактивної мапи">
+          <div class="strava-header">
+            <span class="strava-tag"><i data-lucide="alert-triangle" style="width: 10px; height: 10px;"></i> Виняток: ризик Open Data</span>
+            <span class="strava-title">Кейс Strava Heat Map (2018)</span>
+            <i data-lucide="external-link" style="width: 10px; height: 10px; color: #b45309; margin-left: auto;"></i>
+          </div>
+          <p class="strava-text">
+            Відкрита теплова карта пробіжок користувачів Strava випадково підсвітила контури й патрулі таємних військових баз США в Афганістані та Сирії, де бігали солдати з фітнес-трекерами. Доказ: знеособлені відкриті дані без аудиту несуть ризик деанонімізації.
+          </p>
+        </div>
+      `;
+      document.getElementById('cell-ua-open').innerHTML = uaOpenHTML;
+      // 5. Переходи (Нижня смуга)
+      const transBar = document.getElementById('panel-transitions');
+      let transHTML = `
+        <div class="transition-label">
+          <i data-lucide="refresh-cw" style="width: 12px; height: 12px;"></i>
+          ${APP_DATA.transitions.title}
+        </div>
+        <div class="transition-items">
+      `;
+      APP_DATA.transitions.items.forEach(it => {
+        ITEM_REGISTRY[it.id] = { ...it, path: "🔄 Еволюція: перехід у відкритий код" };
+        const searchKey = `${it.name} ${it.detail} ${it.note}`.toLowerCase();
+        transHTML += `
+          <div class="trans-chip" 
+               data-search="${searchKey}" 
+               data-id="${it.id}">
+            <i data-lucide="${it.icon}" style="width: 12px; height: 12px;"></i>
+            <span>${it.name}</span>
+            <span class="chip-detail">(${it.detail})</span>
+          </div>
+        `;
+      });
+      transHTML += `</div>`;
+      transBar.innerHTML = transHTML;
+    }
+    /* =========================================================================
+       КОМПАКТНЕ ВИПАДАЮЧЕ МЕНЮ (DROPDOWN)
+       ========================================================================= */
+    const dropdown = document.getElementById('chip-dropdown');
+    const ddTitle = document.getElementById('dd-title');
+    const btnDdCard = document.getElementById('btn-dd-card');
+    const btnDdAi = document.getElementById('btn-dd-ai');
+    const btnDdGh = document.getElementById('btn-dd-gh');
+    const btnDdUrl = document.getElementById('btn-dd-url');
+    const btnDdExtra = document.getElementById('btn-dd-extra');
+    let currentItemData = null;
+    function openDropdown(chipEl, e) {
+      const id = chipEl.getAttribute('data-id');
+      const item = ITEM_REGISTRY[id];
+      if (!item) return;
+      currentItemData = item;
+      ddTitle.innerHTML = `<i data-lucide="${currentItemData.icon || 'box'}" style="width: 12px; height: 12px;"></i> ${currentItemData.name}`;
+      // 1. Картка (приховується, якщо інформація вже викладена текстом на екрані)
+      if (currentItemData.noCard) {
+        btnDdCard.style.display = 'none';
+      } else {
+        btnDdCard.style.display = 'flex';
+      }
+      // 2. AI
+      if (currentItemData.aiQuery) {
+        btnDdAi.style.display = 'flex';
+      } else {
+        btnDdAi.style.display = 'none';
+      }
+      // 3. GitHub (перед кнопкою сайту)
+      if (currentItemData.githubUrl) {
+        btnDdGh.style.display = 'flex';
+      } else {
+        btnDdGh.style.display = 'none';
+      }
+      // 4. URL (сайт / джерело / стаття у Вікіпедії)
+      if (currentItemData.url) {
+        btnDdUrl.style.display = 'flex';
+        document.getElementById('lbl-dd-url').textContent = currentItemData.urlText || 'Спробувати (перейти на сайт)';
+      } else {
+        btnDdUrl.style.display = 'none';
+      }
+      // 5. Найнижчий пункт: Інтерактивна мапа Strava Heatmap
+      if (currentItemData.extraUrl) {
+        btnDdExtra.style.display = 'flex';
+        document.getElementById('lbl-dd-extra').textContent = currentItemData.extraUrlText || 'Спробувати мапу (Strava Heatmap)';
+      } else {
+        btnDdExtra.style.display = 'none';
+      }
+      dropdown.classList.add('active');
+      lucide.createIcons();
+      const rect = chipEl.getBoundingClientRect();
+      const ddWidth = dropdown.offsetWidth || 200;
+      const ddHeight = dropdown.offsetHeight || 135;
+      let top = rect.bottom + 3;
+      let left = rect.left;
+      if (top + ddHeight > window.innerHeight - 6) {
+        top = rect.top - ddHeight - 3;
+      }
+      if (left + ddWidth > window.innerWidth - 6) {
+        left = window.innerWidth - ddWidth - 6;
+      }
+      if (left < 6) left = 6;
+      dropdown.style.top = `${top}px`;
+      dropdown.style.left = `${left}px`;
+    }
+    function closeDropdown() {
+      dropdown.classList.remove('active');
+    }
+    // 1: Картка
+    btnDdCard.addEventListener('click', () => {
+      closeDropdown();
+      if (currentItemData) openModal(currentItemData);
+    });
+    // 2: Запитати АІ
+    btnDdAi.addEventListener('click', () => {
+      closeDropdown();
+      if (currentItemData && currentItemData.aiQuery) {
+        const url = `https://www.google.com/search?q=${encodeURIComponent(currentItemData.aiQuery)}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    });
+    // 3: Вихідний код на GitHub
+    btnDdGh.addEventListener('click', () => {
+      closeDropdown();
+      if (currentItemData && currentItemData.githubUrl) {
+        window.open(currentItemData.githubUrl, '_blank', 'noopener,noreferrer');
+      }
+    });
+    // 4: Спробувати / Сайт / Вікіпедія
+    btnDdUrl.addEventListener('click', () => {
+      closeDropdown();
+      if (currentItemData && currentItemData.url) {
+        window.open(currentItemData.url, '_blank', 'noopener,noreferrer');
+      }
+    });
+    // 5: Інтерактивна мапа Strava Heatmap (найнижчий пункт меню)
+    btnDdExtra.addEventListener('click', () => {
+      closeDropdown();
+      if (currentItemData && currentItemData.extraUrl) {
+        window.open(currentItemData.extraUrl, '_blank', 'noopener,noreferrer');
+      }
+    });
+    // Клік по будь-якому клікабельному елементу
+    document.addEventListener('click', (e) => {
+      const targetEl = e.target.closest('.item-chip, .trans-chip, .clickable-desc');
+      if (targetEl) {
+        e.stopPropagation();
+        openDropdown(targetEl, e);
+      } else if (!e.target.closest('#chip-dropdown')) {
+        closeDropdown();
+      }
+    });
+    /* =========================================================================
+       МОДАЛЬНЕ ВІКНО КАРТКИ ("Коротко")
+       ========================================================================= */
+    const modal = document.getElementById('info-modal');
+    const mPath = document.getElementById('m-path');
+    const mTitle = document.getElementById('m-title');
+    const mDetail = document.getElementById('m-detail');
+    const mNote = document.getElementById('m-note');
+    const mCloseBtn = document.getElementById('modal-close');
+    function openModal(item) {
+      mPath.textContent = item.path || 'Інформація';
+      mTitle.innerHTML = `<i data-lucide="${item.icon || 'info'}" style="width: 17px; height: 17px;"></i> ${item.name}`;
+      mDetail.textContent = item.detail ? `Призначення: ${item.detail}` : '';
+      mNote.textContent = item.note || "Додаткових приміток немає.";
+      modal.classList.add('active');
+      lucide.createIcons();
+    }
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+    mCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeDropdown();
+      }
+    });
+    /* =========================================================================
+       ДРУК ТА ЗБЕРЕЖЕННЯ У PDF (A4)
+       ========================================================================= */
+    document.getElementById('btn-pdf').addEventListener('click', () => {
+      closeDropdown();
+      window.print();
+    });
+    /* =========================================================================
+       ФІЛЬТРАЦІЯ ТА ПОШУК
+       ========================================================================= */
+    const searchBox = document.getElementById('search-box');
+    searchBox.addEventListener('input', (e) => {
+      closeDropdown();
+      const q = e.target.value.trim().toLowerCase();
+      const allChips = document.querySelectorAll('[data-search]');
+      allChips.forEach(chip => {
+        const text = chip.getAttribute('data-search') || '';
+        if (!q || text.includes(q)) {
+          chip.classList.remove('chip-hidden');
+        } else {
+          chip.classList.add('chip-hidden');
+        }
+      });
+    });
+    /* =========================================================================
+       СТАРТ
+       ========================================================================= */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMatrix();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
